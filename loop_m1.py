@@ -9,8 +9,10 @@ load_dotenv()
 
 def objective_polynomial(x_inp, *p):
     poly = 0
+    print("--")
     for i, n in enumerate(p):
         poly += n * x_inp ** i
+        #print(f"Poly {i}: {x_inp}")
     return poly
 
 
@@ -51,12 +53,12 @@ def fit_loop(x_in, y_in):
             p0 = np.ones(n, )
 
             param, pcov = curve_fit(objective_polynomial, x_in, y_in, p0=p0)
-
+            print("---Koniec 'curve_fit'---")
             # plot input vs output
             plt.scatter(x_in, y_in, label='Dane surowe')
             # calculate the output for the range
             y_line = objective_polynomial(x_in, *param)
-
+            print("---Koniec y_line---")
             R2 = r_squared_func(y_line)
 
             curve_fit_label = "Wielomian st. " + str(len(param) - 1) + "\nR2 = " + str(R2)
